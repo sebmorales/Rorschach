@@ -11,13 +11,13 @@ var server = app.listen(port);
 var fs = require('fs');
 //ejs
 var git = require('simple-git');
-var dayStart=new Date(2017,11,31,23,59)// for some reason months start in 0 but year or day don't
+var dayStart=new Date(2018,00,07,23,59)// for some reason months start in 0 but year or day don't
 //var dayStart=new Date(2017,11,17)// for some reason months start in 0 but year or day don't
 var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
 // the problem is that the .getTime() returns ms from 1971
 var msOffset=8*60*60*1000;
 var today = new Date(new Date()-msOffset);
-var daysPassed = Math.round(Math.abs((today.getTime()-dayStart.getTime())/(oneDay)));
+var daysPassed = Math.floor(Math.abs((today.getTime()-dayStart.getTime())/(oneDay)));
 var githubDate=today.toISOString().substring(0, 10);
 //var githubDate=today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
 // var githubDate=today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getUTCDate();
