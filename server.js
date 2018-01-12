@@ -1,5 +1,5 @@
 //Express
-var debug=false;
+var debug=true;
 var express = require('express');
 var app = express();
 var https = require('https');
@@ -15,7 +15,7 @@ var dayStart=new Date(2018,00,07,23,59)// for some reason months start in 0 but 
 //var dayStart=new Date(2017,11,17)// for some reason months start in 0 but year or day don't
 var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
 // the problem is that the .getTime() returns ms from 1971
-var msOffset=8*60*60*1000;
+var msOffset=11*60*60*1000;
 var today = new Date(new Date()-msOffset);
 var daysPassed = Math.floor(Math.abs((today.getTime()-dayStart.getTime())/(oneDay)));
 var githubDate=today.toISOString().substring(0, 10);
