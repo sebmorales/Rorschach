@@ -1,7 +1,7 @@
 {
   "name": "gitEyes",
   "version": "1.0.0",
-  "description": "I know you are watching",
+  "description": "For whomever is watching",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
