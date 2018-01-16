@@ -15,10 +15,13 @@ var dayStart=new Date(2018,00,07,23,59)// for some reason months start in 0 but 
 //var dayStart=new Date(2017,11,17)// for some reason months start in 0 but year or day don't
 var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
 // the problem is that the .getTime() returns ms from 1971
-var msOffset=11*60*60*1000;
-var today = new Date(new Date()-msOffset);
+//var today = new Date(new Date()-msOffset);
+var today = new Date();
 var daysPassed = Math.floor(Math.abs((today.getTime()-dayStart.getTime())/(oneDay)));
-var githubDate=today.toISOString().substring(0, 10);
+//Since the .toISOString returns the right format but GMT zone we need to substract 11
+var msOffset=11*60*60*1000;
+var gitToday=new Date(new Date()-msOffset);
+var githubDate=gitToday.toISOString().substring(0, 10);
 //var githubDate=today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
 // var githubDate=today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getUTCDate();
 var commitsToday = JSON.parse(fs.readFileSync('values.json', 'utf8'))[daysPassed];
@@ -27,12 +30,12 @@ var commitLimit=5;
 var todayContributions=0;
 
 if(debug){
-  console.log("DEBUG TRUE");
-  console.log("today is: "+today);
-    console.log("time is: "+today.toISOString().substring(11,23));
-  console.log("github date is: "+githubDate);
-  console.log("Days passed: "+daysPassed);
-  console.log("Commits Scheduled: "+commitsToday);
+    console.log("DEBUG TRUE");
+    console.log("today is: "+today);
+    console.log("time is: "+gitToday.toISOString().substring(11,23));
+    console.log("github date is: "+githubDate);
+    console.log("Days passed: "+daysPassed);
+    console.log("Commits Scheduled: "+commitsToday);
 }
 
 //console.log(today)
