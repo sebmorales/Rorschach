@@ -11,7 +11,7 @@ var server = app.listen(port);
 var fs = require('fs');
 //ejs
 var git = require('simple-git');
-var dayStart=new Date(2018,00,07,23,59)// for some reason months start in 0 but year or day don't
+var dayStart=new Date(2018,00,07,0,0)// for some reason months start in 0 but year or day don't
 //var dayStart=new Date(2017,11,17)// for some reason months start in 0 but year or day don't
 var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
 // the problem is that the .getTime() returns ms from 1971
