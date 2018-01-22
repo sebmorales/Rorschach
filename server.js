@@ -1,5 +1,5 @@
 //Express
-var debug=false;
+var debug=true;
 var express = require('express');
 var app = express();
 var https = require('https');
@@ -28,11 +28,11 @@ var commitsToday = JSON.parse(fs.readFileSync('values.json', 'utf8'))[daysPassed
 var commitsDone=0;
 var commitLimit=5;
 var todayContributions=0;
-
+var timeDetail=new Date(new Date()-msOffset).toISOString().substring(11,23);
 if(debug){
     console.log("DEBUG TRUE");
     console.log("today is: "+today);
-    console.log("time is: "+gitToday.toISOString().substring(11,23));
+    console.log("time is: "+timeDetail);
     console.log("github date is: "+githubDate);
     console.log("Days passed: "+daysPassed);
     console.log("Commits Scheduled: "+commitsToday);
@@ -55,7 +55,7 @@ function updateFile(){
         return console.log(err);
     }
     git().add(['ID.md'],function(){
-      git().commit("Changed Code "+ githubDate, function(){
+      git().commit("Changed Code "+ githubDate+" "+timeDetail, function(){
           git().push(['origin', 'master'],delayCommits);
       })
     });
@@ -64,7 +64,8 @@ function updateFile(){
 }
 
 function checkContributions(){
-  request("http://www.github.com/sebmorales", function(error, response, body) {
+    timeDetail=new Date(new Date()-msOffset).toISOString().substring(11,23);
+    request("http://www.github.com/sebmorales", function(error, response, body) {
     //make a http request to my git. And parse the response though a regex to get today's data
     var rePattern = new RegExp('data-count=\"\\d\" data-date=\"'+githubDate);
     var arrMatches = body.match(rePattern);
@@ -92,7 +93,7 @@ function checkContributions(){
 function delayCommits(){
   if(!debug && commitsDone<commitLimit){
     commitsDone++;
-    setTimeout(function(){ checkContributions()}, 3000);
+    setTimeout(function(){ checkContributions()}, 5000);
   }
   else{
     console.log("Today needs "+commitsToday+" contributions");
