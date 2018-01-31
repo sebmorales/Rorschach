@@ -1,5 +1,5 @@
 //Express
-var debug=true;
+var debug=false;
 var express = require('express');
 var app = express();
 var https = require('https');
@@ -26,7 +26,7 @@ var githubDate=gitToday.toISOString().substring(0, 10);
 // var githubDate=today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getUTCDate();
 var commitsToday = JSON.parse(fs.readFileSync('values.json', 'utf8'))[daysPassed];
 var commitsDone=0;
-var commitLimit=5;
+var commitLimit=6;
 var todayContributions=0;
 var timeDetail=new Date(new Date()-msOffset).toISOString().substring(11,23);
 if(debug){
